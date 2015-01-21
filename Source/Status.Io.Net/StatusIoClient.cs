@@ -6,7 +6,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using StatusIo.Components;
 using StatusIo.Incidents;
+using StatusIo.Subscribers;
 
 namespace StatusIo
 {
@@ -14,7 +16,7 @@ namespace StatusIo
     {
         internal readonly StatusIoConfiguration Configuration;
         private readonly ComponentApi components;
-        private readonly IncidentsApi incidents;
+        private readonly IncidentApi incidents;
         private readonly SubscriberApi subscribers;
 
         private HttpClient httpClient;
@@ -24,26 +26,18 @@ namespace StatusIo
             Configuration = configuration;
 
             httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add("x-api-id", configuration.ApiId);
-            httpClient.DefaultRequestHeaders.Add("x-api-key", configuration.ApiKey);
+            SetHeaders(httpClient.DefaultRequestHeaders);
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             components = new ComponentApi(this);
-            incidents = new IncidentsApi(this);
+            incidents = new IncidentApi(this);
             subscribers = new SubscriberApi(this);
         }
 
         public ComponentApi Components { get { return components; } }
-        public IncidentsApi Incidents { get { return incidents; } }
+        public IncidentApi Incidents { get { return incidents; } }
         public SubscriberApi Subscribers { get { return subscribers; } }
-
-        private Uri MakeUri(string path)
-        {
-            var builder = new UriBuilder(Configuration.Endpoint);
-            builder.Path += path;
-            return builder.Uri;
-        }
 
         internal Task<T> GetAsync<T>(string path) where T : Response
         {
@@ -85,6 +79,20 @@ namespace StatusIo
                     return response;
                 }
             }
+        }
+
+        private Uri MakeUri(string path)
+        {
+            var builder = new UriBuilder(Configuration.Endpoint);
+            builder.Path += path;
+            return builder.Uri;
+        }
+
+        private void SetHeaders(HttpRequestHeaders headers)
+        {
+            headers.Add("x-api-id", Configuration.ApiId);
+            headers.Add("x-api-key", Configuration.ApiKey);
+            headers.ExpectContinue = false;
         }
 
         private void CheckNotDisposed()

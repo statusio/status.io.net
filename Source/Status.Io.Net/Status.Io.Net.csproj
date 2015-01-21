@@ -43,11 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonModel.cs" />
+    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\Container.cs" />
     <Compile Include="Incidents\CreateIncident.cs" />
     <Compile Include="Incidents\Incident.cs" />
-    <Compile Include="Incidents\DisplayMessage.cs" />
     <Compile Include="Incidents\Incidents.cs" />
-    <Compile Include="Incidents\IncidentsApi.cs" />
+    <Compile Include="Incidents\IncidentApi.cs" />
     <Compile Include="Incidents\Message.cs" />
     <Compile Include="Incidents\IncidentBase.cs" />
     <Compile Include="Incidents\ResolveIncident.cs" />
@@ -56,8 +57,10 @@
     <Compile Include="StatusIoClient.cs" />
     <Compile Include="StatusIoConfiguration.cs" />
     <Compile Include="StatusIoErrorException.cs" />
-    <Compile Include="ComponentApi.cs" />
-    <Compile Include="SubscriberApi.cs" />
+    <Compile Include="Components\ComponentApi.cs" />
+    <Compile Include="Subscribers\SubscriberApi.cs" />
+    <Compile Include="Subscribers\Subscription.cs" />
+    <Compile Include="Subscribers\Subscriptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

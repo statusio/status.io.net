@@ -24,10 +24,19 @@ namespace StatusIo.Incidents
         public string Ip { get; set; }
         public DateTime DateTime { get; set; }
 
+        [JsonProperty(PropertyName = "incident")]
+        public string IncidentId { get; set; }
+
         [JsonProperty(PropertyName = "containers")]
         public string[] ContainerIds { get; set; }
 
         [JsonProperty(PropertyName = "components")]
         public string[] ComponentIds { get; set; }
+
+        [JsonProperty(PropertyName = "user_email")]
+        public string UserEmail { get; set; }
+
+        [JsonProperty(PropertyName = "user_full_name")]
+        public string UserFullName { get; set; }
     }
 }

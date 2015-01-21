@@ -36,32 +36,6 @@ namespace StatusIo
     }
 
     [DebuggerDisplay("{Name}")]
-    public abstract class Component
-    {
-        [JsonProperty(PropertyName = "_id")]
-        public string Id { get; set; }
-
-        public History[] History { get; set; }
-        public string Name { get; set; }
-        public int Position { get; set; }
-        public string StatusPage { get; set; }
-
-        [JsonProperty(PropertyName = "hook_key")]
-        public string HookKey { get; set; }
-    }
-
-    public class ComponentWithContainer : Component
-    {
-        public Container[] Containers { get; set; }
-    }
-
-    public class ComponentWithContainerIds : Component
-    {
-        [JsonProperty(PropertyName = "containers")]
-        public string[] ContainerIds { get; set; }
-    }
-
-    [DebuggerDisplay("{Name}")]
     public class GeoLocation
     {
         public string Name { get; set; }
@@ -77,20 +51,6 @@ namespace StatusIo
 
         [JsonProperty(PropertyName = "query_type")]
         public string QueryType { get; set; }
-    }
-
-    [DebuggerDisplay("{Name}")]
-    public class Container
-    {
-        [JsonProperty(PropertyName = "_id")]
-        public string Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Location { get; set; }
-
-        [JsonProperty(PropertyName = "location_geo")]
-        public GeoLocation LocationGeo { get; set; }
     }
 
     public enum IncidentStatus

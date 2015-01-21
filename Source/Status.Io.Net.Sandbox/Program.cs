@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
+using StatusIo.Components;
+using StatusIo.Incidents;
+using StatusIo.Subscribers;
 
 namespace StatusIo.Sandbox
 {
@@ -22,28 +26,53 @@ namespace StatusIo.Sandbox
 
             var client = new StatusIoClient(configuration);
 
-            var incidents = await client.Incidents.GetListAsync();
-            var firstActiveMessage = incidents.Result.Active.First().Messages.First();
-            var incidentMessage = await client.Incidents.GetMessageAsync(firstActiveMessage.Id);
+            await Test(client.Incidents);
+            await Test(client.Components);
+            await Test(client.Subscribers);
+        }
 
-            var components = await client.Components.GetListAsync();
+        private static async Task Test(IncidentApi incidents)
+        {
+            var listIncidentBefore = await incidents.GetListAsync();
+            var firstActiveMessage = listIncidentBefore.Result.Active.First().Messages.First();
+            var getMessage = await incidents.GetMessageAsync(firstActiveMessage.Id);
 
-            var subscribers = await client.Subscribers.GetListAsync();
-            var damien = subscribers.Result.Email.FirstOrDefault(s => s.Address == "damieng@gmail.com");
+            var newIncident = await incidents.CreateAsync(new CreateIncident
+            {
+                Name = "Test " + DateTime.Now,
+                Details = "Automatically created.",
+                CurrentStatus = IncidentStatus.PartialServiceDisruption,
+                CurrentState = IncidentState.Investigating,
+                ComponentIds = getMessage.Result.ComponentIds,
+                ContainerIds = getMessage.Result.ContainerIds
+            });
+
+            var listIncidentAfter = await incidents.GetListAsync();
+            var lastActiveIncident = listIncidentAfter.Result.Active.Last();
+
+            var deleteIncident = await incidents.DeleteAsync(lastActiveIncident.Id);
+        }
+
+        private static async Task Test(ComponentApi components)
+        {
+            var listComponents = await components.GetListAsync();
+        }
+
+        private static async Task Test(SubscriberApi subscribers)
+        {
+            var listSubscribersBefore = await subscribers.GetListAsync();
+            var damien = listSubscribersBefore.Result.Email.FirstOrDefault(s => s.Address == "damieng@gmail.com");
 
             if (damien != null)
             {
-                var deleteResult = await client.Subscribers.DeleteAsync(damien.Id);
+                var deleteSubscriber = await subscribers.DeleteAsync(damien.Id);
             }
 
-            var addResult = await client.Subscribers.AddAsync("email", "damieng@gmail.com");
+            var addSubscriber = await subscribers.AddAsync("email", "damieng@gmail.com");
+            var listSubscribersAfter = await subscribers.GetListAsync();
 
-            var response = await client.Subscribers.GetListAsync();
-
-            foreach (var result in response.Result.Email)
-            {
+            foreach (var result in listSubscribersAfter.Result.Email)
                 Console.WriteLine(result.Address + " joined " + result.JoinDate);
-            }
         }
     }
 }

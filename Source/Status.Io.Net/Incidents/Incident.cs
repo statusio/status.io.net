@@ -3,6 +3,7 @@
 using System;
 using System.Diagnostics;
 using Newtonsoft.Json;
+using StatusIo.Components;
 
 namespace StatusIo.Incidents
 {

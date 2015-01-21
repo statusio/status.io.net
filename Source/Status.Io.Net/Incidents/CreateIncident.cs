@@ -6,6 +6,9 @@ namespace StatusIo.Incidents
 {
     public class CreateIncident : IncidentBase
     {
+        [JsonProperty(PropertyName = "incident_name")]
+        public string Name { get; set; }
+
         [JsonProperty(PropertyName = "current_status")]
         public IncidentStatus CurrentStatus { get; set; }
 
@@ -20,8 +23,5 @@ namespace StatusIo.Incidents
 
         [JsonProperty(PropertyName = "containers")]
         public string[] ContainerIds { get; set; }
-
-        [JsonProperty(PropertyName = "incident_name")]
-        public string IncidentName { get; set; }
     }
 }

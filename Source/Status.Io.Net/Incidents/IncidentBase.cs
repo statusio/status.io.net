@@ -10,7 +10,7 @@ namespace StatusIo.Incidents
         public string StatusPageId { get; set; }
 
         [JsonProperty(PropertyName = "incident_details")]
-        public string IncidentDetails { get; set; }
+        public string Details { get; set; }
 
         [JsonProperty(PropertyName = "notify_email")]
         public int NotifyEmail { get; set; }

@@ -1,4 +1,4 @@
-﻿// Licensed under the Apache 2.0 License. See LICENSE.txt in the project root for more information.
+﻿// Licensed under the Apache 2.0 License. See LICENSE in the project root for more information.
 
 using Newtonsoft.Json;
 

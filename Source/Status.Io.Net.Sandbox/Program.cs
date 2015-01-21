@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace StatusIo.Sandbox
 {
@@ -20,6 +21,20 @@ namespace StatusIo.Sandbox
             };
 
             var client = new StatusIoClient(configuration);
+
+            var incidents = await client.Incidents.GetListAsync();
+            var firstActiveMessage = incidents.Result.Active.First().Messages.First();
+            var incidentMessage = await client.Incidents.GetMessageAsync(firstActiveMessage.Id);
+
+            var components = await client.Components.GetListAsync();
+
+            var subscribers = await client.Subscribers.GetListAsync();
+            var damien = subscribers.Result.Email.FirstOrDefault(s => s.Address == "damieng@gmail.com");
+
+            if (damien != null)
+            {
+                var deleteResult = await client.Subscribers.DeleteAsync(damien.Id);
+            }
 
             var addResult = await client.Subscribers.AddAsync("email", "damieng@gmail.com");
 

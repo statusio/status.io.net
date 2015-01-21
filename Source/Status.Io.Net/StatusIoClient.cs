@@ -6,13 +6,16 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using StatusIo.Incidents;
 
 namespace StatusIo
 {
     public class StatusIoClient : IDisposable
     {
         internal readonly StatusIoConfiguration Configuration;
-        private readonly Subscribers subscribers;
+        private readonly ComponentApi components;
+        private readonly IncidentsApi incidents;
+        private readonly SubscriberApi subscribers;
 
         private HttpClient httpClient;
 
@@ -26,10 +29,14 @@ namespace StatusIo
 
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            subscribers = new Subscribers(this);
+            components = new ComponentApi(this);
+            incidents = new IncidentsApi(this);
+            subscribers = new SubscriberApi(this);
         }
 
-        public Subscribers Subscribers { get { return subscribers; } }
+        public ComponentApi Components { get { return components; } }
+        public IncidentsApi Incidents { get { return incidents; } }
+        public SubscriberApi Subscribers { get { return subscribers; } }
 
         private Uri MakeUri(string path)
         {

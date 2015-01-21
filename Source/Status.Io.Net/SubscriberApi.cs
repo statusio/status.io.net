@@ -1,25 +1,26 @@
 ﻿// Licensed under the Apache 2.0 License. See LICENSE.txt in the project root for more information.
 
-using System;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace StatusIo
 {
-    public class Subscribers
+    public class SubscriberApi
     {
         private readonly StatusIoClient client;
 
-        public Subscribers(StatusIoClient client)
+        internal SubscriberApi(StatusIoClient client)
         {
             this.client = client;
         }
 
         private string StatusPageId { get { return client.Configuration.StatusPageId; } }
 
-        public Task<Response<ListResult>> GetListAsync()
+        public Task<Response<Subscriptions>> GetListAsync()
         {
-            return client.GetAsync<Response<ListResult>>("subscriber/list/" + StatusPageId);
+            return client.GetAsync<Response<Subscriptions>>("subscriber/list/" + StatusPageId);
         }
 
         public Task<Response<bool>> AddAsync(string method, string address, bool silent = false)
@@ -43,11 +44,12 @@ namespace StatusIo
             });
         }
 
-        public Task<Response<Subscription>> DeleteAsync(string subscriberId)
+        public Task<Response<bool>> DeleteAsync(string subscriberId)
         {
-            return client.DeleteAsync<Response<Subscription>>("subscriber/remove/ " + StatusPageId + "/" + subscriberId);
+            return client.DeleteAsync<Response<bool>>("subscriber/remove/" + StatusPageId + "/" + subscriberId);
         }
 
+        [DebuggerDisplay("{Address}")]
         public class Subscription
         {
             [JsonProperty(PropertyName = "join_date")]
@@ -64,11 +66,11 @@ namespace StatusIo
             public string StatusPage { get; set; }
         }
 
-        public class ListResult
+        public class Subscriptions
         {
             public Subscription[] Email { get; set; }
             public Subscription[] Webhook { get; set; }
-            public Subscription[] SMS { get; set; }
+            public Subscription[] Sms { get; set; }
         }
     }
 }

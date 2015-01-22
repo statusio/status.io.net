@@ -39,6 +39,21 @@ namespace StatusIo
         public IncidentApi Incidents { get { return incidents; } }
         public SubscriberApi Subscribers { get { return subscribers; } }
 
+        internal string GetStatusPageId(string statusPageId)
+        {
+            return CleanAndValidateId(statusPageId ?? Configuration.DefaultStatusPageId);
+        }
+
+        internal string CleanAndValidateId(string id)
+        {
+            var clean = id.Trim().ToLowerInvariant();
+            for (int i = 0; i < clean.Length; i++)
+                if (clean[i] < '0' || clean[i] > 'f')
+                    throw new StatusIoErrorException(string.Format("id {0} must be hexadecimal chars 0-f only", id));
+
+            return clean;
+        }
+
         internal Task<T> GetAsync<T>(string path) where T : Response
         {
             return SendRequestAsync<T>("GET", path, null);

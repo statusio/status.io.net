@@ -13,37 +13,37 @@ namespace StatusIo.Subscribers
             this.client = client;
         }
 
-        private string StatusPageId { get { return client.Configuration.StatusPageId; } }
-
-        public Task<Response<Subscriptions>> GetListAsync()
+        public Task<Response<Subscriptions>> GetListAsync(string statusPageId = null)
         {
-            return client.GetAsync<Response<Subscriptions>>("subscriber/list/" + StatusPageId);
+            return client.GetAsync<Response<Subscriptions>>(
+                "subscriber/list/" + client.GetStatusPageId(statusPageId));
         }
 
-        public Task<Response<bool>> AddAsync(string method, string address, bool silent = false)
+        public Task<Response<bool>> AddAsync(string method, string address, string statusPageId = null, bool silent = false)
         {
             return client.PostAsync<Response<bool>>("subscriber/add", new
             {
-                statuspage_id = StatusPageId,
+                statuspage_id = client.GetStatusPageId(statusPageId),
                 meth = method,
                 address,
                 silent = silent ? "1" : "0"
             });
         }
 
-        public Task<Response<Subscription>> UpdateAsync(string subscriberId, string address)
+        public Task<Response<Subscription>> UpdateAsync(string subscriberId, string address, string statusPageId = null)
         {
             return client.PatchAsync<Response<Subscription>>("subscriber/update", new
             {
-                statuspage_id = StatusPageId,
+                statuspage_id = client.GetStatusPageId(statusPageId),
                 subscriber_id = subscriberId,
                 address,
             });
         }
 
-        public Task<Response<bool>> DeleteAsync(string subscriberId)
+        public Task<Response<bool>> DeleteAsync(string subscriberId, string statusPageId = null)
         {
-            return client.DeleteAsync<Response<bool>>("subscriber/remove/" + StatusPageId + "/" + subscriberId);
+            return client.DeleteAsync<Response<bool>>(
+                "subscriber/remove/" + client.GetStatusPageId(statusPageId) + "/" + subscriberId);
         }
     }
 }

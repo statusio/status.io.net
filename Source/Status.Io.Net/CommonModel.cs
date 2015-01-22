@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace StatusIo
 {
     [DebuggerDisplay("{Message}")]
-    public class Status
+    public class ResponseStatus
     {
         public string Error { get; set; }
         public string Message { get; set; }
@@ -15,7 +15,7 @@ namespace StatusIo
 
     public abstract class Response
     {
-        public Status Status { get; set; }
+        public ResponseStatus Status { get; set; }
     }
 
     public class Response<T> : Response
@@ -62,7 +62,7 @@ namespace StatusIo
         SecurityEvent = 600
     }
 
-    public enum IncidentState
+    public enum OperationalState
     {
         Investigating = 100,
         Identified = 200,

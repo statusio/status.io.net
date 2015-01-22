@@ -8,26 +8,25 @@ namespace StatusIo.Components
     {
         private readonly StatusIoClient client;
 
-        internal ComponentApi(StatusIoClient client)
+        public ComponentApi(StatusIoClient client)
         {
             this.client = client;
         }
 
-        private string StatusPageId { get { return client.Configuration.StatusPageId; } }
-
-        public Task<Response<ComponentWithContainer[]>> GetListAsync()
+        public Task<Response<ComponentWithContainer[]>> GetListAsync(string statusPageId = null)
         {
-            return client.GetAsync<Response<ComponentWithContainer[]>>("component/list/" + StatusPageId);
+            return client.GetAsync<Response<ComponentWithContainer[]>>(
+                "component/list/" + client.GetStatusPageId(statusPageId));
         }
 
-        public Task<Response<bool>> UpdateAsync(string details, IncidentStatus status, string[] components, string[] containers)
+        public Task<Response<bool>> UpdateAsync(string details, IncidentStatus status, string[] componentIds, string[] containerIds, string statusPageId = null)
         {
             return client.PostAsync<Response<bool>>("component/status/update", new
             {
-                statuspage_id = StatusPageId,
+                statuspage_id = client.GetStatusPageId(statusPageId),
                 details,
-                components,
-                containers,
+                components = componentIds,
+                containers = containerIds,
                 current_status = status,
             });
         }

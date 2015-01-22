@@ -8,7 +8,7 @@ namespace StatusIo
     {
         public string ApiId { get; set; }
         public string ApiKey { get; set; }
-        public string StatusPageId { get; set; }
+        public string DefaultStatusPageId { get; set; }
 
         public Uri Endpoint { get; set; }
         public TimeSpan Timeout { get; set; }

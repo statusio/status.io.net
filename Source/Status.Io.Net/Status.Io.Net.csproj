@@ -58,6 +58,9 @@
     <Compile Include="StatusIoConfiguration.cs" />
     <Compile Include="StatusIoErrorException.cs" />
     <Compile Include="Components\ComponentApi.cs" />
+    <Compile Include="Status\ContainerSummary.cs" />
+    <Compile Include="Status\StatusApi.cs" />
+    <Compile Include="Status\ComponentSummary.cs" />
     <Compile Include="Subscribers\SubscriberApi.cs" />
     <Compile Include="Subscribers\Subscription.cs" />
     <Compile Include="Subscribers\Subscriptions.cs" />

@@ -13,24 +13,24 @@ namespace StatusIo.Incidents
         public string Details { get; set; }
 
         [JsonProperty(PropertyName = "notify_email")]
-        public int NotifyEmail { get; set; }
+        public string NotifyEmail { get; set; }
 
         [JsonProperty(PropertyName = "notify_sms")]
-        public int NotifySms { get; set; }
+        public string NotifySms { get; set; }
 
         [JsonProperty(PropertyName = "notify_webhook")]
-        public int NotifyWebhook { get; set; }
+        public string NotifyWebhook { get; set; }
 
         [JsonProperty(PropertyName = "social")]
-        public int NotifySocial { get; set; }
+        public string NotifySocial { get; set; }
 
         [JsonProperty(PropertyName = "irc")]
-        public int NotifyIrc { get; set; }
+        public string NotifyIrc { get; set; }
 
         [JsonProperty(PropertyName = "hipchat")]
-        public int NotifyHipchat { get; set; }
+        public string NotifyHipchat { get; set; }
 
         [JsonProperty(PropertyName = "slack")]
-        public int NotifySlack { get; set; }
+        public string NotifySlack { get; set; }
     }
 }

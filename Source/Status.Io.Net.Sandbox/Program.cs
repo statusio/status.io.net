@@ -19,8 +19,7 @@ namespace StatusIo.Sandbox
         {
             var configuration = new StatusIoConfiguration
             {
-                StatusPageId = "54bee43fcdd613804f0004aa",
-                Endpoint = new Uri("http://private-anon-e41b7bd6b-statusio.apiary-proxy.com/v2/"),
+                // Put in your ApiId, ApiKey and DefaultStatusPageId here
                 ThrowOnError = true
             };
 
@@ -42,7 +41,7 @@ namespace StatusIo.Sandbox
                 Name = "Test " + DateTime.Now,
                 Details = "Automatically created.",
                 CurrentStatus = IncidentStatus.PartialServiceDisruption,
-                CurrentState = IncidentState.Investigating,
+                CurrentState = OperationalState.Investigating,
                 ComponentIds = getMessage.Result.ComponentIds,
                 ContainerIds = getMessage.Result.ContainerIds
             });

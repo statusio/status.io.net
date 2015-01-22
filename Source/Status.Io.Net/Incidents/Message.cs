@@ -15,7 +15,7 @@ namespace StatusIo.Incidents
         public string Details { get; set; }
         public string Source { get; set; }
 
-        public IncidentState State { get; set; }
+        public OperationalState State { get; set; }
         public IncidentStatus Status { get; set; }
 
         [JsonProperty(PropertyName = "statuspage")]

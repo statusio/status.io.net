@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using StatusIo.Components;
 using StatusIo.Incidents;
+using StatusIo.Maintenance;
 using StatusIo.Metrics;
 using StatusIo.Status;
 using StatusIo.Subscribers;
@@ -14,6 +15,7 @@ namespace StatusIo
     {
         private readonly ComponentApi components;
         private readonly IncidentApi incidents;
+        private readonly MaintenanceApi maintenance;
         private readonly MetricApi metrics;
         private readonly StatusApi status;
         private readonly SubscriberApi subscribers;
@@ -27,6 +29,7 @@ namespace StatusIo
 
             components = new ComponentApi(this);
             incidents = new IncidentApi(this);
+            maintenance = new MaintenanceApi(this);
             metrics = new MetricApi(this);
             status = new StatusApi(this);
             subscribers = new SubscriberApi(this);           
@@ -34,6 +37,7 @@ namespace StatusIo
 
         public ComponentApi Components { get { return components; } }
         public IncidentApi Incidents { get { return incidents; } }
+        public MaintenanceApi Maintenance { get { return maintenance; } }
         public MetricApi Metrics { get { return metrics; } }
         public StatusApi Status { get {  return status; } }
         public SubscriberApi Subscribers { get { return subscribers; } }

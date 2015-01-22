@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using StatusIo.Components;
 using StatusIo.Incidents;
+using StatusIo.Maintenance;
 using StatusIo.Subscribers;
 
 namespace StatusIo.Sandbox
@@ -25,9 +26,27 @@ namespace StatusIo.Sandbox
 
             var client = new StatusIoClient(configuration);
 
-            await Test(client.Incidents);
-            await Test(client.Components);
-            await Test(client.Subscribers);
+            await Test(client.Maintenance);
+            //await Test(client.Incidents);
+            //await Test(client.Components);
+            //await Test(client.Subscribers);
+        }
+
+        private static async Task Test(MaintenanceApi maintenance)
+        {
+            var listMaintenance = await maintenance.GetList();
+
+            Console.WriteLine("Active maintenance");
+            foreach (var m in listMaintenance.Result.Active)
+                Console.WriteLine("\t" + m.Name);
+
+            Console.WriteLine("Upcoming maintenance");
+            foreach (var m in listMaintenance.Result.Upcoming)
+                Console.WriteLine("\t" + m.Name);
+
+            Console.WriteLine("Resolved maintenance");
+            foreach (var m in listMaintenance.Result.Resolved)
+                Console.WriteLine("\t" + m.Name);
         }
 
         private static async Task Test(IncidentApi incidents)

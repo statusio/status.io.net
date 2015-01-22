@@ -10,7 +10,7 @@ namespace StatusIo.Metrics
     {
         private readonly StatusIoClient client;
 
-        public MetricApi(StatusIoClient client)
+        internal MetricApi(StatusIoClient client)
         {
             this.client = client;
         }

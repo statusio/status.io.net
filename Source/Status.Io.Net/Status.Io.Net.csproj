@@ -56,6 +56,9 @@
     <Compile Include="Incidents\IncidentBase.cs" />
     <Compile Include="Incidents\ResolveIncident.cs" />
     <Compile Include="Incidents\UpdateIncident.cs" />
+    <Compile Include="Maintenance\MaintenanceList.cs" />
+    <Compile Include="Maintenance\Maintenance.cs" />
+    <Compile Include="Maintenance\MaintenanceApi.cs" />
     <Compile Include="Metrics\Metric.cs" />
     <Compile Include="Metrics\MetricApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

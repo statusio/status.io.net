@@ -45,6 +45,9 @@
     <Compile Include="CommonModel.cs" />
     <Compile Include="Components\Component.cs" />
     <Compile Include="Components\Container.cs" />
+    <Compile Include="Components\GeoLocation.cs" />
+    <Compile Include="Components\History.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Incidents\CreateIncident.cs" />
     <Compile Include="Incidents\Incident.cs" />
     <Compile Include="Incidents\Incidents.cs" />
@@ -53,11 +56,14 @@
     <Compile Include="Incidents\IncidentBase.cs" />
     <Compile Include="Incidents\ResolveIncident.cs" />
     <Compile Include="Incidents\UpdateIncident.cs" />
+    <Compile Include="Metrics\Metric.cs" />
+    <Compile Include="Metrics\MetricApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StatusIoClient.cs" />
     <Compile Include="StatusIoConfiguration.cs" />
     <Compile Include="StatusIoErrorException.cs" />
     <Compile Include="Components\ComponentApi.cs" />
+    <Compile Include="StatusIoNetwork.cs" />
     <Compile Include="Status\ContainerSummary.cs" />
     <Compile Include="Status\StatusApi.cs" />
     <Compile Include="Status\ComponentSummary.cs" />

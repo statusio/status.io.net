@@ -27,7 +27,7 @@ namespace StatusIo.Subscribers
                 statuspage_id = StatusPageId,
                 meth = method,
                 address,
-                silent = silent ? 1 : 0
+                silent = silent ? "1" : "0"
             });
         }
 

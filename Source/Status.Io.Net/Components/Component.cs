@@ -14,7 +14,9 @@ namespace StatusIo.Components
         public History[] History { get; set; }
         public string Name { get; set; }
         public int Position { get; set; }
-        public string StatusPage { get; set; }
+
+        [JsonProperty(PropertyName = "statuspage")]
+        public string StatusPageId { get; set; }
 
         [JsonProperty(PropertyName = "hook_key")]
         public string HookKey { get; set; }

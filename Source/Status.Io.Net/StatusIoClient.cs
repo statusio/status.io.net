@@ -32,14 +32,14 @@ namespace StatusIo
             maintenance = new MaintenanceApi(this);
             metrics = new MetricApi(this);
             status = new StatusApi(this);
-            subscribers = new SubscriberApi(this);           
+            subscribers = new SubscriberApi(this);
         }
 
         public ComponentApi Components { get { return components; } }
         public IncidentApi Incidents { get { return incidents; } }
         public MaintenanceApi Maintenance { get { return maintenance; } }
         public MetricApi Metrics { get { return metrics; } }
-        public StatusApi Status { get {  return status; } }
+        public StatusApi Status { get { return status; } }
         public SubscriberApi Subscribers { get { return subscribers; } }
 
         internal readonly StatusIoConfiguration Configuration;

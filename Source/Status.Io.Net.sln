@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Status.Io.Net.Sandbox", "St
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Status.Io.Net.Tests", "Status.Io.Net.Tests\Status.Io.Net.Tests.csproj", "{E78C1FE5-A79E-4EEB-A74C-49D949C6EE6F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0F54F3E9-B4B6-4B7B-ADED-7BC45F4AB975}"
+	ProjectSection(SolutionItems) = preProject
+		..\NuGet\Status.Io.Net.nuspec = ..\NuGet\Status.Io.Net.nuspec
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

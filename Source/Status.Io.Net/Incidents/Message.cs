@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace StatusIo.Incidents
 {
     [DebuggerDisplay("{Details}")]
-    public class Message
+    public class MessageBase
     {
         [JsonProperty(PropertyName = "_id")]
         public string Id { get; set; }
@@ -16,7 +16,6 @@ namespace StatusIo.Incidents
         public string Source { get; set; }
 
         public OperationalState State { get; set; }
-        public IncidentStatus Status { get; set; }
 
         [JsonProperty(PropertyName = "statuspage")]
         public string StatusPageId { get; set; }
@@ -24,14 +23,25 @@ namespace StatusIo.Incidents
         public string Ip { get; set; }
         public DateTime DateTime { get; set; }
 
-        [JsonProperty(PropertyName = "incident")]
-        public string IncidentId { get; set; }
-
         [JsonProperty(PropertyName = "containers")]
         public string[] ContainerIds { get; set; }
 
         [JsonProperty(PropertyName = "components")]
         public string[] ComponentIds { get; set; }
+    }
+
+    public class MaintenanceMessage : MessageBase
+    {
+        [JsonProperty(PropertyName = "maintenance")]
+        public string MaintenanceId { get; set; }
+    }
+
+    public class Message : MessageBase
+    {
+        public IncidentStatus Status { get; set; }
+
+        [JsonProperty(PropertyName = "incident")]
+        public string IncidentId { get; set; }
 
         [JsonProperty(PropertyName = "user_email")]
         public string UserEmail { get; set; }

@@ -9,12 +9,12 @@ namespace StatusIo.Maintenance
     public class MaintenanceList
     {
         [JsonProperty(PropertyName = "active_maintenances")]
-        public Maintenance[] Active { get; set; }
+        public MaintenanceInfo[] Active { get; set; }
 
         [JsonProperty(PropertyName = "upcoming_maintenances")]
-        public Maintenance[] Upcoming { get; set; }
+        public MaintenanceInfo[] Upcoming { get; set; }
 
         [JsonProperty(PropertyName = "resolved_maintenances")]
-        public Maintenance[] Resolved { get; set; }
+        public MaintenanceInfo[] Resolved { get; set; }
     }
 }

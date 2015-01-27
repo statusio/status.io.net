@@ -4,33 +4,9 @@ using Newtonsoft.Json;
 
 namespace StatusIo.Incidents
 {
-    public abstract class IncidentBase
+    public abstract class IncidentBase : NotificationBase
     {
-        [JsonProperty(PropertyName = "statuspage_id")]
-        public string StatusPageId { get; set; }
-
         [JsonProperty(PropertyName = "incident_details")]
         public string Details { get; set; }
-
-        [JsonProperty(PropertyName = "notify_email")]
-        public string NotifyEmail { get; set; }
-
-        [JsonProperty(PropertyName = "notify_sms")]
-        public string NotifySms { get; set; }
-
-        [JsonProperty(PropertyName = "notify_webhook")]
-        public string NotifyWebhook { get; set; }
-
-        [JsonProperty(PropertyName = "social")]
-        public string NotifySocial { get; set; }
-
-        [JsonProperty(PropertyName = "irc")]
-        public string NotifyIrc { get; set; }
-
-        [JsonProperty(PropertyName = "hipchat")]
-        public string NotifyHipchat { get; set; }
-
-        [JsonProperty(PropertyName = "slack")]
-        public string NotifySlack { get; set; }
     }
 }

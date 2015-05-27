@@ -1,5 +1,6 @@
 ﻿// Licensed under the Apache 2.0 License. See LICENSE in the project root for more information.
 
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace StatusIo.Subscribers
@@ -19,24 +20,26 @@ namespace StatusIo.Subscribers
                 "subscriber/list/" + client.GetStatusPageId(statusPageId));
         }
 
-        public Task<Response<bool>> AddAsync(string method, string address, string statusPageId = null, bool silent = false)
+        public Task<Response<bool>> AddAsync(string method, string address, string statusPageId = null, bool silent = false, Grain[] granular = null)
         {
             return client.PostAsync<Response<bool>>("subscriber/add", new
             {
                 statuspage_id = client.GetStatusPageId(statusPageId),
                 meth = method,
                 address,
-                silent = silent ? "1" : "0"
+                silent = silent ? "1" : "0",
+                granular = granular != null ? string.Join(",", granular.Select(g => g.ToApiString())) : null
             });
         }
 
-        public Task<Response<Subscription>> UpdateAsync(string subscriberId, string address, string statusPageId = null)
+        public Task<Response<Subscription>> UpdateAsync(string subscriberId, string address, string statusPageId = null, Grain[] granular = null)
         {
             return client.PatchAsync<Response<Subscription>>("subscriber/update", new
             {
                 statuspage_id = client.GetStatusPageId(statusPageId),
                 subscriber_id = subscriberId,
                 address,
+                granular = granular != null ? string.Join(",", granular.Select(g => g.ToApiString())) : null
             });
         }
 

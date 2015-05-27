@@ -26,7 +26,7 @@ namespace StatusIo.Sandbox
 
             var client = new StatusIoClient(configuration);
 
-            await Test(client.Maintenance);
+            //await Test(client.Maintenance);
             //await Test(client.Incidents);
             //await Test(client.Components);
             //await Test(client.Subscribers);
@@ -81,12 +81,23 @@ namespace StatusIo.Sandbox
             var listSubscribersBefore = await subscribers.GetListAsync();
             var damien = listSubscribersBefore.Result.Email.FirstOrDefault(s => s.Address == "damieng@gmail.com");
 
-            if (damien != null)
+            if (damien == null)
             {
-                var deleteSubscriber = await subscribers.DeleteAsync(damien.Id);
+                await subscribers.AddAsync("email", "damieng@gmail.com");
+                damien = listSubscribersBefore.Result.Email.FirstOrDefault(s => s.Address == "damieng@gmail.com");
             }
+            await subscribers.UpdateAsync(damien.Id, damien.Address, null, new[] { 
+                new Grain {
+                    ComponentId = "5564e39*", // your own ids
+                    ContainerId = "5564e30*" 
+                },
+                new Grain
+                {
+                    ComponentId = "5564e313*",
+                    ContainerId = "54f8967e*"
+                }
+            });
 
-            var addSubscriber = await subscribers.AddAsync("email", "damieng@gmail.com");
             var listSubscribersAfter = await subscribers.GetListAsync();
 
             foreach (var result in listSubscribersAfter.Result.Email)

@@ -2,6 +2,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace StatusIo.Subscribers
@@ -24,5 +25,22 @@ namespace StatusIo.Subscribers
 
         [JsonProperty(PropertyName = "statuspage")]
         public string StatusPageId { get; set; }
+
+        [JsonProperty(PropertyName = "granular")]
+        private string[] Granular
+        {
+            get { return Grains != null ? Grains.Select(g => g.ComponentId + "_" + g.ContainerId).ToArray() : new string[0]; }
+            set
+            {
+                Grains = value.Select(g => new Grain
+                {
+                    ComponentId = g.Split('_')[0],
+                    ContainerId = g.Split('_')[1]
+                }).ToArray();
+            }
+        }
+
+        [JsonIgnore]
+        public Grain[] Grains { get; set; }
     }
 }

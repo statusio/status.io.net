@@ -72,6 +72,7 @@
     <Compile Include="Status\ContainerSummary.cs" />
     <Compile Include="Status\StatusApi.cs" />
     <Compile Include="Status\ComponentSummary.cs" />
+    <Compile Include="Subscribers\Grain.cs" />
     <Compile Include="Subscribers\SubscriberApi.cs" />
     <Compile Include="Subscribers\Subscription.cs" />
     <Compile Include="Subscribers\Subscriptions.cs" />

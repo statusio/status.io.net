@@ -32,11 +32,14 @@ namespace StatusIo.Subscribers
             get { return Grains != null ? Grains.Select(g => g.ComponentId + "_" + g.ContainerId).ToArray() : new string[0]; }
             set
             {
-                Grains = value.Select(g => new Grain
-                {
-                    ComponentId = g.Split('_')[0],
-                    ContainerId = g.Split('_')[1]
-                }).ToArray();
+                Grains = value.Where(g => !string.IsNullOrEmpty(g))
+                              .Select(g => new { parts = g.Split('_') })
+                              .Where(g => g.parts.Length == 2)
+                              .Select(g => new Grain
+                              {
+                                  ComponentId = g.parts[0],
+                                  ContainerId = g.parts[1]
+                              }).ToArray();
             }
         }
 
